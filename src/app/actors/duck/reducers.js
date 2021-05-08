@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   list: ['Tom Hardy', 'Julia Roberts', 'Angelina Jolie']
 };
 
-const actorsReducer = (state = initialActors, action) => {
+const actorsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case types.ADD_ACTOR:
       return {
