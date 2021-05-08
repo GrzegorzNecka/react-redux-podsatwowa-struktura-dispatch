@@ -1,5 +1,6 @@
 import React from 'react';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, bindActionCreators } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './App';
 
 const initialMovies = {
@@ -44,15 +45,22 @@ function actorsReducer(state = initialActors, action) {
   }
 }
 
-const store = createStore(moviesReducer);
+const allReducers = combineReducers({ moviesReducer, actorsReducer });
+const store = createStore(allReducers, composeWithDevTools());
 
-//window.store = store;
+const addActor = item => ({ type: 'ADD_ACTOR', item });
+const resetActors = () => ({ type: 'RESET_ACTORS' });
 
-// console.log('store', store.getState());
-// store.dispatch({ type: 'RESET' });
-// console.log('store', store.getState());
-// store.dispatch({ type: 'ADD', movie: 'Titanic' });
-// console.log('store', store.getState());
+store.dispatch(addActor('Cezary Pazura'));
+
+const actorsActions = bindActionCreators(
+  { add: addActor, reset: resetActors },
+  store.dispatch
+);
+
+actorsActions.add('Jan Frycz');
+//store.dispatch({ type: 'ADD_ACTOR', movie: 'Cezary Pazura') });
+actorsActions.reset();
 
 const Root = () => {
   return <App />;
