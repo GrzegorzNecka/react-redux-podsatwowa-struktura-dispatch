@@ -4,7 +4,7 @@ import movieReducer from './app/movies/duck';
 
 const rootReucer = combineReducers({
   actors: actorsReducer,
-  movies: movieReducers
+  movies: movieReducer
 });
 
 export default rootReucer;
